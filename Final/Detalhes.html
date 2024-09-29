@@ -19,44 +19,5 @@
         <button id="adicionar-carrinho">Adicionar ao Carrinho</button>
     </div>
 </div>
-<script>
-    let carrinho = [];
-
-    // Função para abrir o modal com os detalhes do produto
-    function abrirModal(id, titulo, imagem, descricao) {
-        document.getElementById('modal-img').src = imagem;
-        document.getElementById('modal-titulo').innerText = titulo;
-        document.getElementById('modal-descricao').innerText = descricao;
-
-        // Adiciona ao carrinho ao clicar no botão
-        document.getElementById('adicionar-carrinho').onclick = function() {
-            adicionarAoCarrinho(id, titulo);
-        };
-
-        document.getElementById('modal').style.display = 'flex';
-    }
-
-    // Função para fechar o modal
-    function fecharModal() {
-        document.getElementById('modal').style.display = 'none';
-    }
-
-    // Função para adicionar o produto ao carrinho
-    function adicionarAoCarrinho(id, titulo) {
-        const quantidade = document.getElementById(`quantidade-${id}`).value;
-
-        // Verifica se o produto já está no carrinho
-        const produtoExistente = carrinho.find(produto => produto.id === id);
-
-        if (produtoExistente) {
-            produtoExistente.quantidade += parseInt(quantidade);
-        } else {
-            carrinho.push({ id, titulo, quantidade: parseInt(quantidade) });
-        }
-
-        alert(`${titulo} foi adicionado ao carrinho com sucesso!`);
-        fecharModal();
-    }
-</script>
 </body>
 </html>
