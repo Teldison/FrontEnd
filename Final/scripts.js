@@ -61,8 +61,7 @@ function validarNewsletter() {
     }
 }
 
-let carrinho = [];
-let quantidadeNoCarrinho = 0;
+
 
 // Função para abrir o modal com os detalhes do produto
 function abrirModal(id, titulo, imagem, descricao) {
