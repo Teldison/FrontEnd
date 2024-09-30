@@ -73,9 +73,9 @@ O carrinho de compras contém:
 ## Contribuidores 📌
 @AndressaAssis
 @HeytorPC
-@RafaelJanuzzi
-@RomuloLourenço
-@SamuelTeldison
+@rjanuzzi
+@romulolourenço
+@Teldison
 
 ## Licença ✔️
 - Todo o projeto foi feito de forma acadêmica e para fins de conclusão do projeto final.
