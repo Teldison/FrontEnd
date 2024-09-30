@@ -32,6 +32,7 @@ function validarFormulario() {
 }
 
 let carrinho = [];
+let quantidadeNoCarrinho = 0;
 
 // Função para abrir o modal com os detalhes do produto
 function abrirModal(id, titulo, imagem, descricao) {
@@ -54,17 +55,26 @@ function fecharModal() {
 
 // Função para adicionar o produto ao carrinho
 function adicionarAoCarrinho(id, titulo) {
-    const quantidade = document.getElementById(`quantidade-${id}`).value;
+    const quantidade = parseInt(document.getElementById('quantidade').value);
 
     // Verifica se o produto já está no carrinho
     const produtoExistente = carrinho.find(produto => produto.id === id);
 
     if (produtoExistente) {
-        produtoExistente.quantidade += parseInt(quantidade);
+        produtoExistente.quantidade += quantidade;
     } else {
-        carrinho.push({ id, titulo, quantidade: parseInt(quantidade) });
+        carrinho.push({ id, titulo, quantidade });
     }
+
+    atualizarBadge(quantidade);
 
     alert(`${titulo} foi adicionado ao carrinho com sucesso!`);
     fecharModal();
 }
+
+// Função para atualizar a badge com a quantidade total de itens no carrinho
+function atualizarBadge(quantidadeAdicionada) {
+    quantidadeNoCarrinho += quantidadeAdicionada; // Incrementa a quantidade total
+    document.getElementById('badge').textContent = quantidadeNoCarrinho; // Atualiza a badge
+};
+
