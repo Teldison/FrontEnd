@@ -84,26 +84,45 @@ function fecharModal() {
 
 // Função para adicionar o produto ao carrinho
 function adicionarAoCarrinho(id, titulo) {
-    const quantidade = parseInt(document.getElementById('quantidade').value);
+        const quantidade = parseInt(document.getElementById(`quantidade-${id}`).value);
 
-    // Verifica se o produto já está no carrinho
-    const produtoExistente = carrinho.find(produto => produto.id === id);
+        // Verifica se o produto já está no carrinho
+        const produtoExistente = carrinho.find(produto => produto.id === id);
 
-    if (produtoExistente) {
-        produtoExistente.quantidade += quantidade;
-    } else {
-        carrinho.push({ id, titulo, quantidade });
+        if (produtoExistente) {
+            produtoExistente.quantidade += quantidade;
+        } else {
+            carrinho.push({ id, titulo, quantidade });
+        }
+
+        alert(`${titulo} foi adicionado ao carrinho com sucesso!`);
+
+        // Atualiza o badge com o número total de itens no carrinho
+        atualizarBadgeCarrinho();
+
+        fecharModal();
     }
 
-    atualizarBadge(quantidade);
+    // Função para atualizar o número total de itens no carrinho
+    function atualizarBadgeCarrinho() {
+        const badge = document.getElementById('badge');
+        
+        // Verifica se o badge existe
+        if (!badge) {
+            console.error("Badge não encontrado!");
+            return;
+        }
 
-    alert(`${titulo} foi adicionado ao carrinho com sucesso!`);
-    fecharModal();
-}
+        // Calcula o número total de itens no carrinho
+        const totalItens = carrinho.reduce((total, produto) => total + produto.quantidade, 0);
 
-// Função para atualizar a badge com a quantidade total de itens no carrinho
-function atualizarBadge(quantidadeAdicionada) {
-    quantidadeNoCarrinho += quantidadeAdicionada; // Incrementa a quantidade total
-    document.getElementById('badge').textContent = quantidadeNoCarrinho; // Atualiza a badge
-};
+        // Atualiza o texto do badge
+        badge.textContent = totalItens;
 
+        console.log(`Badge atualizado para: ${totalItens}`); // Verificação de log
+    }
+
+    // Garante que o badge seja atualizado ao carregar a página (se houver produtos no carrinho)
+    document.addEventListener('DOMContentLoaded', () => {
+        atualizarBadgeCarrinho();
+    });
