@@ -1,34 +1,64 @@
 function validarFormulario() {
-    let nome = document.getElementById('nome').value.trim();
-    let email = document.getElementById('email').value.trim();
-    let duvida = document.getElementById('duvida').value.trim();
-    let isValid = true;
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const duvida = document.getElementById('duvida').value;
+    let valid = true;
 
-    // Limpa mensagens de erro
-    document.getElementById('erro-nome').innerText = '';
-    document.getElementById('erro-email').innerText = '';
-    document.getElementById('erro-duvida').innerText = '';
+    // Reseta as mensagens
+    document.getElementById('mensagem-sucesso').style.display = 'none';
+    document.getElementById('mensagem-erro').style.display = 'none';
 
-    // Valida nome
-    if (nome === "") {
+    // Validações simples
+    if (nome === '') {
         document.getElementById('erro-nome').innerText = 'Por favor, preencha o nome.';
-        isValid = false;
+        valid = false;
+    } else {
+        document.getElementById('erro-nome').innerText = '';
     }
 
-    // Valida email
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (email === "" || !emailPattern.test(email)) {
-        document.getElementById('erro-email').innerText = 'Por favor, insira um email válido.';
-        isValid = false;
+    if (email === '') {
+        document.getElementById('erro-email').innerText = 'Por favor, preencha o email.';
+        valid = false;
+    } else {
+        document.getElementById('erro-email').innerText = '';
     }
 
-    // Valida dúvida
-    if (duvida === "") {
-        document.getElementById('erro-duvida').innerText = 'Por favor, preencha sua dúvida.';
-        isValid = false;
+    if (duvida === '') {
+        document.getElementById('erro-duvida').innerText = 'Por favor, preencha a dúvida.';
+        valid = false;
+    } else {
+        document.getElementById('erro-duvida').innerText = '';
     }
 
-    return isValid; // Retorna true ou false para permitir ou impedir o envio do formulário
+    // Se todos os campos forem válidos
+    if (valid) {
+        document.getElementById('mensagem-sucesso').style.display = 'block';
+        return true; 
+    } else {
+        document.getElementById('mensagem-erro').style.display = 'block';
+        return false; 
+    }
+}
+
+function validarNewsletter() {
+    const email = document.getElementById('email').value.trim();
+    const emailPattern = /^[^ ]+@[^ ]+.[a-z]{2,3}$/;
+
+    // Reseta a mensagem de sucesso
+    document.getElementById('mensagem-sucesso').style.display = 'none';
+
+    // Valida o email
+    if (email === "") {
+        document.querySelector('.email-error').innerText = 'Erro: Por favor, preencha o e-mail.';
+        return false; // Impede o envio do formulário
+    } else if (!emailPattern.test(email)) {
+        document.querySelector('.email-error').innerText = 'Erro: Por favor, insira um e-mail válido.';
+        return false; // Impede o envio do formulário
+    } else {
+        document.querySelector('.email-error').innerText = ''; // Limpa mensagem de erro
+        document.getElementById('mensagem-sucesso').style.display = 'block'; // Exibe mensagem de sucesso
+        return true; // Impede o envio real do formulário (para testes)
+    }
 }
 
 let carrinho = [];
